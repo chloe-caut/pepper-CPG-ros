@@ -156,13 +156,17 @@ def rescale_frame(frame, percent):
 ''' 
       ###################################  
       '''
-      
+ 
+# x pixel est le ros topic /hand_tracking/x_pixel
+#pour print sur le pc, il faut aussi creer un node listener aui subscribe to ce topic.
+
 class HandTrackingNode(Node):
     def __init__(self):
         super().__init__('hands_tracking_node')
         qos_profile = QoSProfile(depth=10)
         self.image_pub = self.create_publisher(Image, '/hand_tracking/image', qos_profile)
         self.neuron_pub = self.create_publisher(Float32MultiArray, '/neuron_data', qos_profile)
+        self.x_pixel_pub = self.create_publisher(Float32, '/hand_tracking/x_pixel', qos_profile)  # Add publisher for x_pixel
         self.bridge = CvBridge()
        
         self.neur1 = create_NRS(nom='RS1', I_inj=0.01, w_inj=0.05, V=0.01, sigmaS=20, sigmaF=1, Af=0.2, q=0.1)
@@ -210,7 +214,7 @@ class HandTrackingNode(Node):
                     x_pixel_msg.data = x_pixel
                     #self.x_pixel_pub.publish(x_pixel_msg)
                     '''le printttttttttt'''
-                    print(self.neur1.I_inj)
+                    #print(self.neur1.I_inj) mauvaise idee
                     
                     t = time.time() - self.start_time
                     I_inj = x_pixel
