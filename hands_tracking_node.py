@@ -13,6 +13,7 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 from rclpy.qos import QoSProfile
+from std_msgs.msg import Float32
 
 # Initialize mediapipe hands module
 mphands = solutions.hands
@@ -150,7 +151,12 @@ def rescale_frame(frame, percent):
     height = int(frame.shape[0] * percent / 100)
     dim = (width, height)
     return cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
-
+    
+    
+''' 
+      ###################################  
+      '''
+      
 class HandTrackingNode(Node):
     def __init__(self):
         super().__init__('hands_tracking_node')
@@ -170,7 +176,10 @@ class HandTrackingNode(Node):
         self.start_time = time.time()
        
         self.cap = cv2.VideoCapture(0)
-       
+        
+    ''' 
+    ###################################  run
+    '''
     def run(self):
         rate = self.create_rate(10)
         while rclpy.ok():
@@ -195,11 +204,18 @@ class HandTrackingNode(Node):
                     x_pixel = int(wrist.x * frame.shape[1])
                     y_pixel = int(wrist.y * frame.shape[0])
                     cv2.circle(frame, (x_pixel, y_pixel), 6, (200, 0, 200), -1)
-                   
+                    
+                    '''# Publish x_pixel as Float32 message'''
+                    x_pixel_msg = Float32()
+                    x_pixel_msg.data = x_pixel
+                    #self.x_pixel_pub.publish(x_pixel_msg)
+                    '''le printttttttttt'''
+                    print(self.neur1.I_inj)
+                    
                     t = time.time() - self.start_time
                     I_inj = x_pixel
                     self.neur1.I_inj = I_inj
-               
+                    
                     V, sigmaS, q = update_neuron(self.neur1, t)
                    
                     self.list_V.append(V)
@@ -218,7 +234,8 @@ class HandTrackingNode(Node):
             rate.sleep()
        
         self.cap.release()
-
+        
+        
 def main(args=None):
     rclpy.init(args=args)
     node = HandTrackingNode()
@@ -232,3 +249,10 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    
+  
+
+
+
+
+
