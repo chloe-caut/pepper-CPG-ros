@@ -1,0 +1,31 @@
+<package format="3">
+  <name>my_hand_tracking_pkg</name>
+  <version>0.0.1</version>
+  <description>My hand_tracking package</description>
+  <maintainer email="chloe.caut@gmail.com">Caut</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <!-- Dependencies for building -->
+  <build_depend>rclpy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+
+  <!-- Dependencies for running -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+ 
+  <!-- Python dependencies -->
+  <exec_depend>python3</exec_depend>
+  <exec_depend>python3-setuptools</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>mediapipe</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
