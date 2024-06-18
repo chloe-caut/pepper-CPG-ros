@@ -26,7 +26,7 @@ cd ros2_iron_ws
 
 colcon build
 
-sourcage mes couillles:
+sourcage :
 
 source /opt/ros/iron/setup.bash
 #source ~/ros2_iron_ws /install/setup.bash
